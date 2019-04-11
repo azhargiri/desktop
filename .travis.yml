@@ -22,8 +22,7 @@ addons:
 
 branches:
   only:
-    - development
-    - /^__release-.*/
+    - test-cd 
 
 language: node_js
 node_js:
@@ -50,3 +49,10 @@ after_success:
 after_failure:
   - yarn test:report
   - yarn test:review
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_OAUTH_TOKEN
+  file: dist/desktop-linux-x64.zip
+  skip_cleanup: true
+  draft: true
